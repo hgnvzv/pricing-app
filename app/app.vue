@@ -487,16 +487,16 @@ async function checkSession() {
       }
     }
   } catch (err) {
-    // No valid session, keep currentUser as null
+    
   }
 }
 
-// === Success Message Handling ===
+
 function showSuccessMessage(message) {
   successMessage.value = message
   showMessage.value = true
   
-  // Auto hide after 3 seconds
+
   setTimeout(() => {
     showMessage.value = false
   }, 3000)
@@ -507,8 +507,10 @@ async function addProduct() {
   try {
     await $fetch('/api/products', { method: 'POST', body: newItem.value })
     newItem.value = { id: null, name: '', price: '' }
-    await fetchProducts() // Wait for refresh to complete
+    await fetchProducts() // Refresh products list
     showSuccessMessage('تمت إضافة السلعة بنجاح!')
+    // Scroll to top to show the new item
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   } catch (err) {
     alert('حدث خطأ أثناء إضافة السلعة')
   }
@@ -534,8 +536,10 @@ async function updateProduct() {
   try {
     await $fetch('/api/products', { method: 'PUT', body: newItem.value })
     cancelEdit()
-    await fetchProducts() // Wait for refresh to complete
+    await fetchProducts() // Refresh products list
     showSuccessMessage('تم تحديث السلعة بنجاح!')
+    // Scroll to top to show the updated item
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   } catch (err) {
     alert('حدث خطأ أثناء تحديث السلعة')
   }
@@ -564,7 +568,7 @@ body {
   direction: rtl;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
   min-height: 100vh;
-  color: #0f172a;
+  color: #f8fafc; /* Light text for better contrast */
 }
 
 /* App Container */
@@ -681,7 +685,7 @@ glass-card {
 }
 
 .subtitle {
-  color: #64748b;
+  color: #334155;
   font-size: 1rem;
   font-weight: 500;
 }
@@ -696,7 +700,7 @@ glass-card {
 
 .input-group label {
   display: block;
-  color: #1e293b;
+  color: #0f172a;
   font-weight: 600;
   margin-bottom: 10px;
   font-size: 0.9rem;
@@ -825,7 +829,7 @@ glass-card {
 }
 
 .brand-text p {
-  color: #64748b;
+  color: #334155;
   font-size: 0.85rem;
   font-weight: 500;
 }
@@ -868,7 +872,7 @@ glass-card {
 }
 
 .user-role {
-  color: #64748b;
+  color: #334155;
   font-size: 0.8rem;
   font-weight: 500;
 }
@@ -909,7 +913,7 @@ glass-card {
 }
 
 .dashboard-header h2 {
-  color: white;
+  color: #f1f5f9;
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: -0.3px;
@@ -936,13 +940,13 @@ glass-card {
   display: block;
   font-size: 1.6rem;
   font-weight: 800;
-  color: white;
+  color: #f1f5f9;
   margin-bottom: 4px;
   letter-spacing: -0.5px;
 }
 
 .stat-label {
-  color: rgba(255, 255, 255, 0.9);
+  color: #e2e8f0;
   font-size: 0.8rem;
   font-weight: 600;
 }
@@ -964,7 +968,7 @@ glass-card {
   border: none;
   padding: 12px 20px;
   border-radius: 14px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #e2e8f0;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -996,7 +1000,7 @@ glass-card {
 }
 
 .section-header h3 {
-  color: white;
+  color: #f1f5f9;
   font-size: 1.4rem;
   margin-bottom: 8px;
   font-weight: 800;
@@ -1004,7 +1008,7 @@ glass-card {
 }
 
 .section-header p {
-  color: rgba(255, 255, 255, 0.9);
+  color: #e2e8f0;
   font-size: 0.95rem;
   font-weight: 500;
 }
@@ -1027,7 +1031,7 @@ glass-card {
 }
 
 .form-group label {
-  color: #1e293b;
+  color: #ffffff;
   font-weight: 600;
   margin-bottom: 10px;
   font-size: 0.9rem;
@@ -1132,7 +1136,7 @@ glass-card {
 }
 
 .table-header h4 {
-  color: #0f172a;
+  color: #ffffff;
   font-size: 1.2rem;
   font-weight: 700;
 }
@@ -1175,7 +1179,7 @@ table th {
 table td {
   padding: 16px 20px;
   border-bottom: 1px solid #f1f5f9;
-  color: #1e293b;
+  color: #0f172a;
   font-weight: 500;
 }
 
@@ -1295,7 +1299,7 @@ table tbody tr:last-child td {
 }
 
 .search-header p {
-  color: #64748b;
+  color: #334155;
   font-size: 0.95rem;
   font-weight: 500;
 }
@@ -1348,7 +1352,7 @@ table tbody tr:last-child td {
 }
 
 .results-header h4 {
-  color: white;
+  color: #f1f5f9;
   font-size: 1.2rem;
   font-weight: 700;
 }
@@ -1502,14 +1506,14 @@ table tbody tr:last-child td {
 }
 
 .no-results h4 {
-  color: white;
+  color: #f1f5f9;
   font-size: 1.3rem;
   margin-bottom: 12px;
   font-weight: 700;
 }
 
 .no-results p {
-  color: rgba(255, 255, 255, 0.85);
+  color: #e2e8f0;
   font-size: 1rem;
   font-weight: 500;
 }
